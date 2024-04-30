@@ -2,6 +2,16 @@
 
 A visual aid for weight loss
 
+
+
+
+## Charts 
+
+https://www.chartjs.org/
+
+
+
+
 ## Github notes
 
 `git clone git@github.com:AndyGaskell/weight_dashboard`
