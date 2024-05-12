@@ -4,13 +4,20 @@ A visual aid for weight loss
 
 
 
+## Links
+
+- http://localhost/weight_dashboard/
+- https://github.com/AndyGaskell/weight_dashboard
+
 
 ## Charts 
 
 https://www.chartjs.org/
 
 
+## Frontend
 
+https://getbootstrap.com/docs/5.3/getting-started/introduction/
 
 ## Github notes
 
