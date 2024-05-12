@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 
-$weight = intval($_GET["weight"]);
+$weight = floatval($_GET["weight"]);
 $date_tick = strtotime($_GET["date"]);
 $date = date("Y-m-d", $date_tick);
 

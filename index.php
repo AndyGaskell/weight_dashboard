@@ -1,3 +1,12 @@
+<?php 
+$data = file_get_contents("weight_data.csv");
+$data_lines = explode("\n", $data);
+$data = Array();
+foreach ( $data_lines AS $data_line ) {
+    list($weight, $date) = explode(",", $data_line);
+    $data[$date] = $weight;
+}
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -36,7 +45,7 @@
     <div class="container text-left">
         <div class="row align-items-start">
             <div class="col">
-
+                <h2>Record it</h2>
 
 
                 <div class="mb-3">
@@ -54,10 +63,29 @@
 
             </div>
             <div class="col">
-                One of three columns
+                <h2>Weight conversions</h2>
+                <ul>
+                    <li>10 Stone = 65.5kg</li>
+                    <li>11 Stone = 69.9kg</li>
+                    <li>12 Stone = 76.2kg</li>
+                    <li>13 Stone = 82.5kg</li>
+                    <li>14 Stone = 88.9kg</li>
+                    <li>15 Stone = 95.3kg</li>
+                    <li>16 Stone = 101.6kg</li>
+                </ul>
             </div>
             <div class="col">
-                One of three columns
+            <h2>Raw data</h2>
+                <ul>
+                <?php 
+                    foreach( $data AS $date => $weight ) {
+                        echo "<li>" . $date . ": " . $weight . "kg</li>";
+                    }
+
+
+                ?>
+                </ul>
+
             </div>
         </div>
     </div>
