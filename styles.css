@@ -1,0 +1,6 @@
+    .chart_box {
+        height: 400px;
+    }
+    .chart_box canvas{
+        width: 100% !important;
+    }
