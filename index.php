@@ -83,6 +83,7 @@ foreach ( $data_lines AS $data_line ) {
             </div>
 
             <div class="col-8">
+                <h2>Last 90 Days</h2>
                 <div class="chart_box">
                     <canvas id="chart_weight_90_days"></canvas>
                 </div>
@@ -133,6 +134,7 @@ new Chart(document.getElementById("chart_weight_90_days"), {
     <div class="container">
         <div class="row align-items-start">
             <div class="col text-left">
+                <h2>Last 365 Days</h2>
                 <div class="chart_box">
                     <canvas id="chart_weight_365_days"></canvas>
                 </div>
@@ -180,6 +182,7 @@ new Chart(document.getElementById("chart_weight_365_days"), {
     <div class="container">
         <div class="row align-items-start">
             <div class="col text-left">
+                <h2>All Time</h2>
                 <div class="chart_box">
                     <canvas id="chart_weight_all_time"></canvas>
                 </div>
