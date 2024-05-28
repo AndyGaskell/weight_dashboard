@@ -1,20 +1,44 @@
 <?php 
+# read in data
 $data = file_get_contents("weight_data.csv");
 $data_lines = explode("\n", $data);
 
+# data stores
 $data = Array();
 $data_90_days = Array();
 $data_365_days = Array();
+$steps = Array();
+$step_points = Array(7, 14, 21, 28);
 
-
+# process it
 foreach ( $data_lines AS $data_line ) {
     list($weight, $date) = explode(",", $data_line);
+
+    if ( isset( $data[$date] ) ) {
+        echo "<pre>Error: duplicate date, " . $date . "</pre>";
+    }
+
     $data[$date] = $weight;
+
     if ( strtotime($date) > strtotime("-90 days") ) {
         $data_90_days[$date] = $weight;
     }
     if ( strtotime($date) > strtotime("-365 days") ) {
         $data_365_days[$date] = $weight;
+    }
+
+    if ( !isset($current_weight) ) {
+        $current_weight = $weight;
+    }
+
+    foreach ( $step_points AS $step_point ) {
+        if ( strtotime($date) > strtotime("-" . $step_point . " days") AND !isset( $steps[$step_point] ) ) {
+            $steps[$step_point] = Array(
+                "change" => $current_weight - $weight,
+                "weight" => $weight,
+                "date" => $date,
+            );
+        }
     }
 }
 
@@ -64,7 +88,7 @@ foreach ( $data_lines AS $data_line ) {
     <div class="container text-left">
         <div class="row align-items-start">
             <div class="col-4">
-                <h2>Record it</h2>
+                <h2>Record a weight</h2>
 
 
                 <div class="mb-3">
@@ -79,7 +103,28 @@ foreach ( $data_lines AS $data_line ) {
 
                 <div id="response_place"></div>
 
+                <hr/>
 
+                <h2>Change</h2>
+
+                <?php 
+                $steps = array_reverse($steps, TRUE);
+                #echo "<pre>" . print_r($steps, TRUE) . "</pre>";
+                ?>
+
+                <ul>
+                    <?php 
+                    
+
+                    foreach ( $steps AS $step => $step_data ) {
+                        echo "<li>";
+                        echo $step . " days: " . $step_data["change"] . "kg ";
+                        echo "(" . $step_data["weight"] . "kg, " . date('l jS \o\f F',  strtotime($step_data["date"]) ) . ")";
+                        echo "</li>";
+
+                    }
+                    ?>
+                </ul>
             </div>
 
             <div class="col-8">
@@ -232,22 +277,41 @@ new Chart(document.getElementById("chart_weight_all_time"), {
     <div class="container">
         <div class="row align-items-start">
             <div class="col text-left">
-                One of three columns
+                <h2>Raw data array</h2>
+            <?php 
+                echo "<pre>" . print_r($data, TRUE) . "</pre>";
+                ?>
             </div>
             <div class="col text-left">
                 <h2>Weight conversions</h2>
                 <ul>
-                    <li>10 Stone = 65.5kg</li>
-                    <li>11 Stone = 69.9kg</li>
-                    <li>12 Stone = 76.2kg</li>
-                    <li>13 Stone = 82.5kg</li>
-                    <li>14 Stone = 88.9kg</li>
-                    <li>15 Stone = 95.3kg</li>
-                    <li>16 Stone = 101.6kg</li>
+                    <li>1 stone = 6.4kg</li>
+                    <li>2 stone = 12.7kg</li>
+                    <li>3 stone = 19.1kg</li>
+                    <li>4 stone = 25.4kg</li>
+                    <li>5 stone = 31.8kg</li>
+                    <li>6 stone = 38.1kg</li>
+                    <li>7 stone = 44.5kg</li>
+                    <li>8 stone = 50.8kg</li>
+                    <li>9 stone = 57.2kg</li>
+                    <li>10 stone = 65.5kg</li>
+                    <li>11 stone = 69.9kg</li>
+                    <li>12 stone = 76.2kg</li>
+                    <li>13 stone = 82.5kg</li>
+                    <li>14 stone = 88.9kg</li>
+                    <li>15 stone = 95.3kg</li>
+                    <li>16 stone = 101.6kg</li>
+                </ul>
+
+                <ul>
+                    <li>97.2kg = 15.3 stone</li>
+                    <li>80kg = 12.6 stone</li>
+                    <li>17kg = 2.7 stone</li>
+
                 </ul>
             </div>
             <div class="col text-right">
-                <h2>Raw data</h2>
+                <h2>Dates and weights</h2>
                 <ul>
                 <?php 
                     foreach( $data AS $date => $weight ) {
