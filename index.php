@@ -307,7 +307,8 @@ new Chart(document.getElementById("chart_weight_all_time"), {
                     <li>97.2kg = 15.3 stone</li>
                     <li>80kg = 12.6 stone</li>
                     <li>17kg = 2.7 stone</li>
-
+                    <li>63kg = 9.9 stone</li>
+                    <li>85.9kg = 13.5 stone</li>
                 </ul>
             </div>
             <div class="col text-right">
@@ -317,8 +318,6 @@ new Chart(document.getElementById("chart_weight_all_time"), {
                     foreach( $data AS $date => $weight ) {
                         echo "<li>" . $date . ": " . $weight . "kg</li>";
                     }
-
-
                 ?>
                 </ul>
             </div>
