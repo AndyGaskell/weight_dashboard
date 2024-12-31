@@ -7,10 +7,16 @@ $weight = floatval($_GET["weight"]);
 $date_tick = strtotime($_GET["date"]);
 $date = date("Y-m-d", $date_tick);
 
-echo "<br/><div class=\"alert alert-success\" role=\"alert\">Recorded weight " . $weight . "kg for the date " . date("F jS, Y", $date_tick) . ".</div>";
+
 
 $data_line = "\n" . $weight . "," . $date;
 
 $data_filename = "weight_data.csv";
 
-file_put_contents($data_filename, $data_line, FILE_APPEND);
+$write_return = file_put_contents($data_filename, $data_line, FILE_APPEND);
+
+if ( $write_return ) {
+    echo "<br/><div class=\"alert alert-success\" role=\"alert\">Recorded weight " . $weight . "kg for the date " . date("F jS, Y", $date_tick) . ".</div>";
+} else {
+    echo "<br/><div class=\"alert alert-danger\" role=\"alert\">Error writing data.</div>";
+}
